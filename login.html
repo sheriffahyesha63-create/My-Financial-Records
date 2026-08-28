@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICF-SL · Login</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f0f4fa;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ----- HEADER (dark blue) ----- */
+    header {
+      background-color: #0b1a33;
+      color: white;
+      padding: 0.8rem 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      border-bottom: 2px solid #1a2f4f;
+      flex-shrink: 0;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.5rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .logo-placeholder {
+      width: 62px;
+      height: 62px;
+      background-color: #1f3a5f;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px dashed #8aadcf;
+      background-image: url('icf-logo.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #b6ccf0;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .logo-placeholder span {
+      background: rgba(11, 26, 51, 0.65);
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      backdrop-filter: blur(2px);
+      font-size: 0.55rem;
+      letter-spacing: 0.5px;
+    }
+
+    .title-group {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .main-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    }
+    .sub-title {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #c6d9f5;
+      letter-spacing: 1px;
+      border-left: 3px solid #4b7bb8;
+      padding-left: 0.8rem;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 700px) {
+      .main-title { font-size: 1.2rem; }
+      .sub-title { font-size: 0.85rem; }
+      .logo-placeholder { width: 50px; height: 50px; }
+    }
+
+    /* ----- MAIN (centered login) ----- */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f0f4fa 0%, #e2eaf2 100%);
+      padding: 2rem;
+    }
+
+    .login-container {
+      background: white;
+      border-radius: 24px;
+      padding: 2.5rem 3rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(11, 26, 51, 0.15);
+      border: 1px solid #e2eaf2;
+      transition: transform 0.2s;
+    }
+
+    .login-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-header .lock-icon {
+      background: #0b1a33;
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-size: 2rem;
+      box-shadow: 0 8px 20px rgba(11, 26, 51, 0.2);
+    }
+
+    .login-header h2 {
+      color: #0b1a33;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .login-header p {
+      color: #4a5a72;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ----- FORM ----- */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #2d4059;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group label i {
+      margin-right: 6px;
+      color: #4b7bb8;
+      width: 18px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 2px solid #dce3ec;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      font-family: inherit;
+      background: #fafcff;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #0b1a33;
+      box-shadow: 0 0 0 4px rgba(11, 26, 51, 0.08);
+      background: white;
+    }
+
+    .form-group input::placeholder {
+      color: #a0b0c8;
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .form-options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #4a5a72;
+      cursor: pointer;
+    }
+
+    .form-options label input[type="checkbox"] {
+      accent-color: #0b1a33;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .form-options a {
+      color: #0b1a33;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .form-options a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 0.8rem;
+      background: #0b1a33;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-login:hover {
+      background: #1a3055;
+      transform: scale(0.98);
+    }
+
+    .btn-login:active {
+      transform: scale(0.96);
+    }
+
+    .error-message {
+      background: #fde8e8;
+      color: #b22234;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      display: none;
+      border-left: 4px solid #b22234;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .error-message.show {
+      display: flex;
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #6b7a93;
+    }
+
+    .login-footer span {
+      color: #0b1a33;
+      font-weight: 600;
+    }
+
+    @media (max-width: 500px) {
+      .login-container {
+        padding: 1.8rem;
+      }
+      .login-header h2 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <div class="logo-placeholder" role="img" aria-label="ICF logo">
+          <span>ICF</span>
+        </div>
+        <div class="title-group">
+          <div class="main-title">INFORMATICS CONSULTANCY FIRM SIERRA LEONE</div>
+          <div class="sub-title">Financial Records</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+    <div class="login-container">
+      <div class="login-header">
+        <div class="lock-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to access your financial records</p>
+      </div>
+
+      <!-- Error message -->
+      <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorText">Invalid credentials. Please try again.</span>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Username / Email</label>
+          <input type="text" id="username" placeholder="Enter your username" required autofocus />
+        </div>
+
+        <div class="form-group">
+          <label><i class="fas fa-key"></i> Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required />
+        </div>
+
+        <div class="form-options">
+          <label>
+            <input type="checkbox" checked /> Remember me
+          </label>
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-login">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+      </form>
+
+      <div class="login-footer">
+        &copy; 2026 <span>ICF-SL</span> · All rights reserved
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-content">ICF-SL. Finance</div>
+  </footer>
+
+  <script>
+    // ----- LOGIN HANDLING -----
+    function handleLogin(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMessage = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+
+      // Credentials
+      const validUsername = 'admin';
+      const validPassword = 'admin123';
+
+      // Clear previous error
+      errorMessage.classList.remove('show');
+
+      // Validate
+      if (!username || !password) {
+        errorText.textContent = 'Please enter both username and password.';
+        errorMessage.classList.add('show');
+        return;
+      }
+
+      // Check credentials (case-insensitive username)
+      if (username.toLowerCase() === validUsername.toLowerCase() && password === validPassword) {
+        // Success - store session and redirect to login.html
+        localStorage.setItem('icfLoggedIn', 'true');
+        localStorage.setItem('icfUser', username);
+        
+        // Redirect to login.html (which will then redirect to dashboard)
+        window.location.href = 'login.html';
+      } else {
+        // Invalid credentials
+        errorText.textContent = 'Invalid username or password. Please try again.';
+        errorMessage.classList.add('show');
+        
+        // Shake animation effect (optional)
+        const container = document.querySelector('.login-container');
+        container.style.animation = 'shake 0.4s ease';
+        setTimeout(() => {
+          container.style.animation = '';
+        }, 400);
+        
+        // Clear password field
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+      }
+    }
+
+    // Add shake animation dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-10px); }
+        40% { transform: translateX(10px); }
+        60% { transform: translateX(-6px); }
+        80% { transform: translateX(6px); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Check if already logged in
+    window.addEventListener('DOMContentLoaded', function() {
+      if (localStorage.getItem('icfLoggedIn') === 'true') {
+        // If already logged in, stay on login page or redirect to dashboard
+        // For now, we'll stay on login page and let user decide
+        // You can uncomment below to auto-redirect to dashboard
+        // window.location.href = 'dash.html';
+      }
+    });
+
+    // Enter key support
+    document.getElementById('password').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+      }
+    });
+  </script>
+</body>
+</html>
