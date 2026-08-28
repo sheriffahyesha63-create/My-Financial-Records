@@ -295,6 +295,36 @@
       .nav-tab { font-size: 0.85rem; padding: 0.4rem 1rem; }
       .stat-card .value { font-size: 1.7rem; }
     }
+
+    /* Logout button */
+    .logout-btn {
+      background: #b22234;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .logout-btn:hover {
+      background: #8a1a2a;
+      transform: scale(0.97);
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .user-info {
+      color: #c6d9f5;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -309,6 +339,10 @@
           <div class="main-title">INFORMATICS CONSULTANCY FIRM SIERRA LEONE</div>
           <div class="sub-title">Financial Records</div>
         </div>
+      </div>
+      <div class="header-right">
+        <span class="user-info" id="userDisplay"><i class="fas fa-user"></i> admin</span>
+        <button class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
       </div>
     </div>
   </header>
@@ -434,6 +468,26 @@
           }
         }
       });
+
+      // Display logged in user
+      const user = localStorage.getItem('icfUser') || 'admin';
+      document.getElementById('userDisplay').innerHTML = `<i class="fas fa-user"></i> ${user}`;
+    });
+
+    // ----- LOGOUT FUNCTION -----
+    function handleLogout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('icfLoggedIn');
+        localStorage.removeItem('icfUser');
+        window.location.href = 'login.html';
+      }
+    }
+
+    // Check if user is logged in
+    window.addEventListener('DOMContentLoaded', function() {
+      if (localStorage.getItem('icfLoggedIn') !== 'true') {
+        window.location.href = 'login.html';
+      }
     });
   </script>
 </body>
